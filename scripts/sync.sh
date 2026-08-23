@@ -34,7 +34,9 @@ if [ -n "$BAD" ]; then
   exit 1
 fi
 
-# 4. Commit + push if anything changed
+# 4. Pull any external commits (autostash protects our dirty worktree),
+# then commit + push if anything changed.
+git pull --rebase --autostash origin main >/dev/null 2>&1 || echo "pull/rebase failed (check sync.log)"
 git add -A
 if ! git diff --cached --quiet; then
   git commit -m "sync playbooks from VPS ($(date -u +%Y-%m-%d))"
