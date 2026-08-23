@@ -6,6 +6,7 @@ A **playbook** is Mino's scheduled automation format: a `CONTEXT.md` describing 
 
 ## Layout
 
+playbooks live in `playbooks/`, one directory per playbook. Layout:
 ```
 ai-news-daily/            Daily AI news: judge topics → fetch facts → synthesize report
 daily-ai-concept/         Learn one AI concept per day and store it to memory
