@@ -6,11 +6,14 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export PATH=/usr/local/bin:/usr/bin:/bin
 
-# 1. Pull source files from the VPS into playbooks/ (no runs/artifacts/backups)
+# 1. Pull source files into playbooks/ (no runs/artifacts/backups).
+# From a desktop: rsync over ssh from the VPS. On the VPS itself, set
+# MINO_PLAYBOOKS_SRC to the local path so no ssh hop is needed.
+SRC="${MINO_PLAYBOOKS_SRC:-vps:/home/mino/.mino/playbooks/}"
 rsync -a --delete \
   --exclude 'runs/' --exclude 'output/' \
   --exclude '*.bak*' --exclude '.archive*' --exclude '.backup*' --exclude 'stages-bak*' \
-  vps:/home/mino/.mino/playbooks/ playbooks/
+  "$SRC" playbooks/
 
 # 2. Sanitize (idempotent: already-sanitized values never match)
 cd playbooks
