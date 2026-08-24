@@ -15,10 +15,14 @@ mkdir -p "$OUT_DIR"
 
 NOW=$(TZ=Asia/Kuala_Lumpur date +%Y-%m-%d)
 YDAY=$(TZ=Asia/Kuala_Lumpur date -d 'yesterday' +%Y-%m-%d)
+DOW=$(TZ=Asia/Kuala_Lumpur date +%A | tr '[:upper:]' '[:lower:]')
 
-# Memory graph status: count facts + edges from the graph tables.
-FACTS=$(sqlite3 "$DB" "SELECT COUNT(*) FROM facts;" 2>/dev/null || echo "?")
-EDGES=$(sqlite3 "$DB" "SELECT COUNT(*) FROM edges;" 2>/dev/null || echo "?")
+# Memory graph status: the graph lives in memories/*.md (schema v7 removed the
+# SQLite facts table). Facts = live fact files; edges = edge blocks' target
+# entries (4-space indented YAML). Close to the Go count (a file Go skips on
+# parse can shift it by a few edges — informational only).
+FACTS=$(find "$HOME_DIR/memories" -maxdepth 1 -name '*.md' 2>/dev/null | wc -l)
+EDGES=$(grep -h '^    - target:' "$HOME_DIR/memories"/*.md 2>/dev/null | wc -l)
 
 {
   echo "# Morning Facts — $NOW"
@@ -39,7 +43,8 @@ EDGES=$(sqlite3 "$DB" "SELECT COUNT(*) FROM edges;" 2>/dev/null || echo "?")
   echo
   echo "## Today's schedule"
   if [ -f "$HOME_DIR/schedules.json" ]; then
-    cat "$HOME_DIR/schedules.json" | jq -r '.[] | "\(.time)  \(.name)"' 2>/dev/null | sort | sed 's/^/-  /'
+    # Day-gate: entries with a days list only run on those weekdays (lowercase).
+    cat "$HOME_DIR/schedules.json" | jq -r --arg dow "$DOW" '.[] | select((.days // []) | length == 0 or index($dow)) | "\(.time)  \(.name)"' 2>/dev/null | sort | sed 's/^/-  /'
   else
     echo "- (no schedules.json — parked)"
   fi
@@ -53,7 +58,7 @@ EDGES=$(sqlite3 "$DB" "SELECT COUNT(*) FROM edges;" 2>/dev/null || echo "?")
       echo "-  $title"
       FOUND=1
     fi
-  done < <(find "$HOME_DIR/playbooks" -path "*/output/*.md" -newermt "$YDAY 00:00" ! -newermt "$NOW 00:00" 2>/dev/null | head -8)
+  done < <(find "$HOME_DIR/playbooks" -path '*/output/*.md' -newermt "$YDAY 00:00" ! -newermt "$NOW 00:00" 2>/dev/null | head -8)
   [ "$FOUND" = "0" ] && echo "- (none found)"
 } > "$OUT"
 
