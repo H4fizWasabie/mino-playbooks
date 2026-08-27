@@ -43,4 +43,3 @@
 | Outcome | Required tool call |
 | --- | --- |
 | Post published | MCP_composio_COMPOSIO_MULTI_EXECUTE_TOOL returned a real post/creation ID |
-| Publish guarded | url-verified.md receipt existed AND URL matched caption.md AND prefix was https://vultr-1.tail8e6639.ts.net/images/ |
