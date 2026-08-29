@@ -19,3 +19,13 @@ pushed 2026-08-26T06:00:04Z
 To https://github.com/H4fizWasabie/mino-playbooks.git
    98bb1d2..aba5798  main -> main
 pushed 2026-08-27T06:00:05Z
+[main 7a46c2e] sync playbooks from VPS (2026-08-28)
+ 6 files changed, 5 insertions(+), 186 deletions(-)
+ delete mode 100644 playbooks/malaysian-news-daily/CONTEXT.md
+ delete mode 100644 playbooks/malaysian-news-daily/config.md
+ delete mode 100644 playbooks/malaysian-news-daily/persona.md
+ delete mode 100755 playbooks/malaysian-news-daily/script.sh
+ delete mode 100644 playbooks/malaysian-news-daily/stages/01-news/CONTEXT.md
+To https://github.com/H4fizWasabie/mino-playbooks.git
+   aba5798..7a46c2e  main -> main
+pushed 2026-08-28T06:00:05Z
