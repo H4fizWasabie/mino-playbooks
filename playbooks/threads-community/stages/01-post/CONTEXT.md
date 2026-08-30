@@ -24,6 +24,16 @@
 8. Write `output/threads-community-log.md` with date, type, topic, exact post text, and post ID (or skip reason).
 9. **Send the owner the Telegram report EXACTLY ONCE via `send_message` with to=the owner — CRITICALLY, ONLY AFTER the `threads_post` call has returned a post ID (step 7 must complete first). Send the report strictly AFTER publishing, with the ACTUAL post ID in it — never before, never with a placeholder.** Content: type, topic, post text, post ID (or skip reason).
 
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason log is a successful outcome; ending without the log file is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- `threads_post` error → retry ONCE; still failing → write the log with the exact error and skip reason, send the Telegram report once, end the stage.
+- Read spill (`[artifact: ... → N chars]`) → do NOT page chunk-by-chunk; shape ONE pass per step 1.
+- Missing dedup ledger → treat as empty and create it (step 4).
+- Judgment gate fails after the one rewrite → skip with reason (step 6).
+- Escalate to the owner only what genuinely blocked the day, with the attempted recovery stated.
+
 ## Tools
 
 - `threads_post`

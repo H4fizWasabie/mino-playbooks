@@ -58,3 +58,12 @@ The daily AI-concept library: exactly one curated, Mino-grounded fact per concep
 | Artifact | Path |
 | --- | --- |
 | learn log | output/learn-log.md |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Search unavailable or sources fail verification → store nothing rather than a guessed fact; write the one-line report with the honest reason and end.
+- Library rotation index missing or unreadable → re-derive the next slot from the declared rotation file, never from memory.
+- Verification of the concept fails → pick the next candidate within the declared source set; only if all candidates fail, log and end.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

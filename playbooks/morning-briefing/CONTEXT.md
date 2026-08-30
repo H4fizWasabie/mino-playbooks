@@ -1,9 +1,43 @@
-Purpose: Give the owner a one-message morning brief every day at 07:30: what happened overnight, what Mino owns today, and what needs attention.
+# Morning Briefing — daily 07:30 one-message brief
 
-Routing: Two stages. 01-gather (script) collects facts deterministically; 02-synthesize (LLM) composes and sends exactly one Telegram message.
+Give the owner a one-message morning brief every day at 07:30: what happened overnight, what Mino owns today, and what needs attention. Two stages: a deterministic fact-gathering script, then an LLM synthesis that sends EXACTLY ONE Telegram message.
 
-Inputs: authoritative local clock, list_reminders, manage_memory status, sqlite3 via bash, yesterday's post logs, today's schedule.
+## Folder Map
 
-Outputs: a Telegram brief to the owner and output/morning-brief.md.
+```
+morning-briefing/
+├── CONTEXT.md            (you are here — navigation hub)
+├── config.md             (runner: description, status, agent)
+├── persona/              (persona pointer → agency roster; see Routing)
+├── stages/
+│   ├── 01-gather/        (script stage, zero inference → output/facts.md)
+│   └── 02-synthesize/    (compose + send exactly one Telegram brief → output/morning-brief.md)
+├── tools/link-check.sh   (routing health: links + orphans)
+└── runs/                 (Mino-owned run state — never hand-edit state.json)
+```
 
-Safety: facts only — read from tools and files, never guess. If a source is unavailable, say so in the brief. EXACTLY ONE message per run — never re-send on retry or failure.
+## Routing
+
+| Task | Go To | Do NOT Load |
+|------|-------|-------------|
+| Understand or change one stage | that stage's `stages/NN-name/CONTEXT.md` — the contract IS the behavior | other stages' internals |
+| Tune briefing voice | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/chief-of-staff.md`) | stage internals |
+| Read a past brief | newest `runs/<run-id>/stages/02-synthesize/output/morning-brief.md` | — |
+| Change what facts are gathered | `stages/01-gather/script.sh` (mechanical — edit the script, not the model) | — |
+| Verify wiring after edits | `tools/link-check.sh` | — |
+
+## Failure Protocol (fix-or-adapt)
+
+A brief that honestly says "source unavailable" for a missing source is a SUCCESS. The only true failure is zero messages or two messages. When something breaks, navigate the workspace and recover in-contract:
+
+1. **Diagnose** — read the failing contract section and the actual error; known failure modes have declared exits (script non-zero exit → run fails loudly, fix the script; sqlite/reminder source unavailable → say so in the brief, never guess).
+2. **Adapt** within the contract's bounds — facts only, from tools and files. EXACTLY ONE `send_message` per run, never re-sent on retry.
+3. **Escalate** to the owner with the brief itself — that IS the deliverable; never a bare failure report without it.
+4. After any structural fix, run `tools/link-check.sh` before declaring done.
+
+- **Run data is read-only outside stage execution** (harness write guard). Never hot-patch `runs/<id>/...` mid-run; recovery of a failed run = fix the contract (these docs), then re-run — the harness resumes at the first incomplete stage.
+
+## Stage Handoffs
+
+- `01-gather` → `02-synthesize`: via `../01-gather/output/facts.md` (reminders, memory state, blocked tasks, schedule, yesterday's posts).
+- `02-synthesize` composes and sends EXACTLY ONE Telegram message to the owner and writes the durable brief. It is the only stage that sends messages.

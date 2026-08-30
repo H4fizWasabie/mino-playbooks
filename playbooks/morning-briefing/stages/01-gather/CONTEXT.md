@@ -21,3 +21,10 @@
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Morning facts | `output/facts.md` | Markdown: reminders, memory, attention, schedule, yesterday's posts |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- A data source fails (sqlite, reminders, schedules) → the script exits non-zero and the run fails loudly: fix the script, not the model. Never guess missing facts.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

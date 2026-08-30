@@ -61,3 +61,12 @@ Research is a SINGLE, bounded phase. After commit, never loop back to reading lo
 | Outcome | Required tool call |
 | --- | --- |
 | Post published | `MCP_composio_COMPOSIO_MULTI_EXECUTE_TOOL_FLAT` returned a post ID |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Search unavailable or all candidates excluded → use the newest unexcluded local source per contract; if none, write the skip log and end.
+- Image generation or critique fails → publish text-only per the contract; the critique loop is bounded (one regeneration).
+- Facebook publish error → retry ONCE; still failing → write the log with the exact error and send the Telegram report with the skip reason.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

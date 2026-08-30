@@ -27,4 +27,14 @@ Diagnose the most recent failed run using the harness `post_mortem` tool (which 
 ## Outputs
 | Artifact | Path |
 | --- | --- |
-| postmortem ticket | output/postmortem-<run-id>.md |
+| postmortem ticket | output/postmortem.md |
+
+The ticket filename is LITERAL: `output/postmortem.md` (the run directory already identifies the run — never embed `<run-id>` in the declared path; the output validator checks the literal name and a placeholder ticket is a contract defect, 2026-08-29). Inside the ticket, name the diagnosed run ID in the header. If a ticket for the diagnosed run is desired under the diagnosed run's ID, write it as a SECOND file alongside the declared one — the declared output must always be the real, complete ticket.
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- No failed runs found → write the ticket stating that; it is a valid outcome.
+- Harness tool returns thin evidence → render the ticket from exactly what was returned; never re-scan traces with bash.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

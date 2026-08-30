@@ -30,3 +30,11 @@
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Audit report | `output/weekly-audit.md` | Markdown |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Read budget spent before covering everything → score from what was read and record the sampling truth; never continue past the budget.
+- Fewer runs than usual this week → audit honestly with what exists; an empty week scored as empty is valid.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

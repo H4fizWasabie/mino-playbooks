@@ -62,3 +62,11 @@ The shared quarantine digest at `/home/mino/.mino/data/threads-replies/digest.md
 | Stage summary (metadata only) | `output/replies-summary.md` | Markdown |
 | Sent replies (own texts only) | `output/replies-sent.md` | Markdown |
 | Digest (quarantined output — enforced, never distilled) | `/home/mino/.mino/data/threads-replies/digest.md` | Markdown |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- threads_get_replies empty or failing for a post → continue with remaining posts; zero replies is valid — still overwrite the digest with a fresh run header.
+- threads_post publication fails → remove only that exact reserved ledger line, record the failure, never retry the same candidate this run.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

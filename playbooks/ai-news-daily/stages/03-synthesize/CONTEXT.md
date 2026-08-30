@@ -11,7 +11,7 @@
 
 ## Process
 
-1. Read facts.md from the fetch stage. A story marked `Status: fetch failed` is reported as unverified — never invent details for it.
+1. Read facts.md from the fetch stage. A story marked `Status: fetch failed` (including `degenerate extraction`) is reported as unverified — never invent details for it.
 2. Compose ONE concise combined Threads post (≤ ~500 characters) covering the top stories. Run the Threads judgment gate (threads-gate.md) on it; rewrite ONCE if it fails; if it still fails, skip the post and note the reason.
 3. **Publish the Threads post** via `threads_post`. Record the returned post ID. If publication fails (tool error, gate skip), record the failure reason and continue — do not block the rest of the pipeline.
 4. Compose the Telegram report for the owner: the date, one line of significance per story, source URLs, the Threads post link (or skip reason), and the knowledge file path. Terse, structured, skimmable — the trend-researcher deliverable voice.
@@ -31,3 +31,10 @@
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Final report | `output/03-report.md` | Markdown: published Threads post link/ID, report, knowledge file path |
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Threads publish error → retry ONCE; still failing → write the log with the exact error and send the Telegram report with the skip reason.
+- facts.md missing a story marked fetch-failed → synthesize from the stories that succeeded; do not re-fetch.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

@@ -43,3 +43,9 @@
 | Outcome | Required tool call |
 | --- | --- |
 | Post published | MCP_composio_COMPOSIO_MULTI_EXECUTE_TOOL returned a real post/creation ID |
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Instagram publish error → retry ONCE; still failing → write the durable log with the exact error and skip reason; never publish unverified parameters.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

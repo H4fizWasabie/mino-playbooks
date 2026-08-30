@@ -25,14 +25,12 @@ if [ "${WEEKLY_COST_FORCE:-0}" != "1" ] && [ "$DOW" != "7" ]; then
   exit 0
 fi
 
-# --- 1. Usage (the contract's aggregation, bounded tail) ---
-USAGE=$(tail -200000 "$HOME_DIR/usage.jsonl" 2>/dev/null |
-  jq -s '[.[] | select(.ts >= (now - 7*86400 | todateiso8601)) |
-    {m: .model, c: (.cost_usd // 0), i: (.in // 0), o: (.out // 0)}] |
-    group_by(.m) | map({model: .[0].m, calls: length, in: (map(.i)|add),
-    out: (map(.o)|add), cost: (map(.c)|add)})' 2>/dev/null)
+# --- 1. Usage (the contract's aggregation; source = state.db usage_log,
+#         the successor of the retired usage.jsonl — issue found 2026-08-29) ---
+USAGE=$(sqlite3 -json "$HOME_DIR/state.db" \
+  "SELECT model AS \"model\", COUNT(*) AS \"calls\", SUM(in_tokens) AS \"in\", SUM(out_tokens) AS \"out\", COALESCE(SUM(cost_usd),0) AS \"cost\" FROM usage_log WHERE ts >= datetime('now','-7 days') GROUP BY model ORDER BY cost DESC;" 2>/dev/null)
 if [ -z "$USAGE" ]; then
-  printf '# Weekly Cost + Output Report\n\n**Error:** usage.jsonl unreadable or empty.\n' > "$OUT"
+  printf '# Weekly Cost + Output Report\n\n**Error:** usage_log in state.db unreadable or empty.\n' > "$OUT"
   cat "$OUT"
   exit 1
 fi

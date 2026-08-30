@@ -22,3 +22,11 @@
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Stage output | `output/cleanup-log.md` | Markdown |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Composio tool discovery fails or connection inactive → write the log with the exact error and end; never improvise alternative tools.
+- Batch modify fails or is partial → record exactly which IDs succeeded/failed; NEVER rescan or loop to fix — end and report.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

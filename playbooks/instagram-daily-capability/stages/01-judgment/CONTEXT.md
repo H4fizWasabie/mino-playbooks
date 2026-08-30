@@ -24,3 +24,10 @@
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Selected topic | `output/topic.md` | Markdown: topic + angle |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- All candidate topics repeat recent posts → pick the most distinct available and record the reasoning in the output; never expand the read budget to keep hunting.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

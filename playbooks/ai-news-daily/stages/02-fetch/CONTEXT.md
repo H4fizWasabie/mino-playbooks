@@ -25,3 +25,10 @@ This stage is a committed bash script (`script.sh`) that the harness executes di
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Facts digest | `output/facts.md` | Markdown: `## Title` / `Source: URL` / `Status: fetched|fetch failed` / `Facts:` bullets |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- A fetch fails or returns a captcha/login wall → mark `Status: fetch failed` for that story and continue; never re-search to replace it.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

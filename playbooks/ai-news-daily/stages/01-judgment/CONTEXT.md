@@ -29,3 +29,22 @@
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Selected topics | `output/topics.md` | Markdown: `## Title` / `Source: URL` / `Key claim: sentence` |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Blocked/paywalled source → drop the story and pick an alternative per the Source Quality Rules; never re-search past the declared caps.
+- All sources fail verification → write `## No stories today` and end; fewer than 3 verified stories is valid.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.
+
+## Source Quality Rules (migrated from legacy root CONTEXT, 2026-08-29)
+
+These prevent the 2026-08-23 failure mode (all sources blocked):
+
+1. **Source diversity:** Max 1 story per domain across the 3 picks. Never pick 2 stories from the same publication.
+2. **Blocked-source avoidance:** Do NOT pick Bloomberg, Wall Street Journal, or other paywalled/bot-blocking sites as source URLs — they block automated fetches with captcha walls. Use alternative sources (tech blogs, press releases, official company blogs, Wired, TechCrunch, The Verge, Ars Technica, Reuters, etc.) for the same story. The story may be REPORTED by Bloomberg, but you must find an alternative source that actually renders for automated fetch.
+3. **Facebook/Instagram avoidance:** Do NOT use Facebook or Instagram post URLs as sources — they require login and block extraction.
+4. **URL accuracy:** Each story's Source URL must actually correspond to THAT story. Never reuse a URL from a different story. If you cannot find a real URL for a story, drop it and pick another.
+5. **Verify before write:** For each URL, confirm during fetch_url (step 3) that it returns real article text, not a captcha wall or login page. If all 3 sources fail verification, write `## No stories today` — do not write unverifiable stories to topics.md.
+6. **No aggregator pages (2026-08-29 live failure):** The Source URL MUST be the article itself on the publisher's site. Aggregator/collection/tag/"trending list" pages are FORBIDDEN as Source URLs — even when they confirm dated headlines — because the fetch script extracts navigation junk from them and the run dies at synthesis. If only an aggregator confirms a story, find the actual article URL on the publisher's site, or drop the story and pick another.

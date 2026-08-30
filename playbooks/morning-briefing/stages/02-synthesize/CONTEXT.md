@@ -25,3 +25,11 @@
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Brief | `output/morning-brief.md` | Markdown: the sent message text |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- A source is unavailable or thin → say so in the brief section; never fabricate.
+- send_message failed after publishing once → do NOT re-send on retry; EXACTLY ONE message per run, ever.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

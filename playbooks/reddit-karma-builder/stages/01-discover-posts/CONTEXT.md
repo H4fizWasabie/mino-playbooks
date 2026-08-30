@@ -64,3 +64,11 @@
 | Artifact | Location | Format |
 | --- | --- | --- |
 | Candidate posts | `output/candidates.md` | Markdown |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Reddit API failure → do not retry; write the output with the error recorded and end.
+- Missing dedup ledger → treat as empty and create it; never skip the day for a missing ledger.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

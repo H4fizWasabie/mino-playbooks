@@ -49,3 +49,12 @@
 | Outcome | Required tool call |
 | --- | --- |
 | Post published | `threads_post` returned a post ID |
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Missing used-stories ledger → treat as empty and create it.
+- threads_post error → retry ONCE; still failing → ledger + log with the exact error; send the Telegram report.
+- Judgment gate fails after one rewrite → ledger + log note, no post.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

@@ -30,6 +30,15 @@ UA="Mozilla/5.0 (compatible; mino-ai-news-pilot/1.0)"
 mkdir -p "$OUT_DIR"
 : > "$OUT"
 
+# empty-day skip: 01-judgment writes "# No stories today" with no ## blocks.
+# That is a SUCCESS (skip day), not a fetch failure — write the skip artifact
+# and exit 0 so synthesis can report the no-news day.
+if ! grep -q '^## ' "$TOPICS" 2>/dev/null; then
+  echo "# No stories today — skip day (per 01-judgment skip log, $(date -u +%F))" > "$OUT"
+  echo "skip=no stories to fetch"
+  exit 0
+fi
+
 # parse_topics: emit "<title>TAB<url>" per story block ("" url = block missing Source).
 parse_topics() {
   awk '
@@ -39,7 +48,7 @@ parse_topics() {
       url = ""
       next
     }
-    /^Source: / && title != "" { url = substr($0, 9); sub(/[ \t\r]+$/, "", url) }
+    /^Source: / && title != "" { url = substr($0, 9); { sub(/[ \t].*$/, "", url) } }
     END { if (title != "") print title "\t" url }
   ' "$TOPICS"
 }
@@ -125,6 +134,16 @@ while IFS=$'\t' read -r title url; do
   facts="$(printf '%s\n' "$text" | sed -n '2,11p')"
   if [ -z "$facts" ]; then
     printf '## %s\nSource: %s\nStatus: fetch failed (no extractable text)\n\n' "$title" "$url" >> "$OUT"
+    continue
+  fi
+  # Degenerate-extraction guard (2026-08-29 live failure): aggregator/tag
+  # pages yield repeated nav cards. Fewer than 3 DISTINCT fact lines means
+  # the page is not a real article — record as failed, not "fetched".
+  distinct="$(printf '%s\n' "$facts" | sort -u | wc -l)"
+  if [ "$distinct" -lt 3 ]; then
+    printf '## %s\nSource: %s\nStatus: fetch failed (degenerate extraction — likely an aggregator/nav page, not an article)\nFacts:\n' "$title" "$url" >> "$OUT"
+    printf '%s\n' "$facts" | sed 's/^/- /' >> "$OUT"
+    printf '\n' >> "$OUT"
     continue
   fi
   {

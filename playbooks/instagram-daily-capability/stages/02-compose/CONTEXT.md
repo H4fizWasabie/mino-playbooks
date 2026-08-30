@@ -51,3 +51,10 @@ Every file under `output/` MUST be written using the `write_file` harness tool (
 | --- | --- | --- |
 | Caption + image URL | `output/caption.md` | Markdown: caption + verified HTTPS URL |
 | URL verification receipt | `output/url-verified.md` | Markdown: URL, status, content type, timestamp |
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Image fails the vision critique → regenerate ONCE with the specific flaw fixed; a second failure → write the critique verdict and end (stage 03 will skip the day).
+- Public URL sync fails → do not proceed; write the failure to the output so stage 03 skips with a reason.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

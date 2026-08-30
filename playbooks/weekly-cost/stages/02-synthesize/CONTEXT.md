@@ -42,3 +42,11 @@ exact message text.
 `send_message` returns a 15+ digit message ID confirming Telegram delivery.
 File-write success = `output/weekly-cost.md` exists and was written by this
 stage.
+
+## Recovery Protocol (fix-or-adapt)
+
+A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:
+
+- Zero-cost week or zero posts → report it honestly; an empty week is data, not an error.
+- send_message failed after the report was composed → do NOT re-send on retry; EXACTLY ONE message per run.
+- Escalate to the owner only what genuinely blocked the run, with evidence and the recovery already attempted. The Telegram report (when declared) is never dropped — EXACTLY ONCE per run.

@@ -1,2 +1,2 @@
-description: Daily Reddit karma builder — find trending AI/tech posts in developer subreddits and post genuinely helpful comments (max 2, one per subreddit), logged with permalinks.
+description: Daily Reddit karma builder — find trending AI/tech posts in developer subreddits and post one genuinely helpful comment per run (2 scheduled runs/day, 20 min apart, one per subreddit), logged with permalinks.
 agent: community-builder
