@@ -30,10 +30,16 @@ UA="Mozilla/5.0 (compatible; mino-ai-news-pilot/1.0)"
 mkdir -p "$OUT_DIR"
 : > "$OUT"
 
-# empty-day skip: 01-judgment writes "# No stories today" with no ## blocks.
-# That is a SUCCESS (skip day), not a fetch failure — write the skip artifact
-# and exit 0 so synthesis can report the no-news day.
-if ! grep -q '^## ' "$TOPICS" 2>/dev/null; then
+# empty-day skip: 01-judgment writes "## No stories today" per its own
+# contract (stages/01-judgment/CONTEXT.md) when it has zero verified
+# stories — or topics.md may be missing/empty entirely. Both are a SUCCESS
+# (skip day), not a fetch failure — write the skip artifact and exit 0 so
+# synthesis can report the no-news day. Checked as an exact-line match
+# first: the earlier "no ## line at all" check missed this because the
+# skip marker line itself starts with "## ", identical to a real story
+# heading, so a legitimate no-news day (2026-08-29, 2026-08-30 live
+# failures) fell through and was parsed as a fake story with no URL.
+if ! grep -q '^## ' "$TOPICS" 2>/dev/null || grep -q '^## No stories today *$' "$TOPICS" 2>/dev/null; then
   echo "# No stories today — skip day (per 01-judgment skip log, $(date -u +%F))" > "$OUT"
   echo "skip=no stories to fetch"
   exit 0

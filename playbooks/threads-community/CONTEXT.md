@@ -1,25 +1,13 @@
 # Threads Community Post — @AiThreads daily
 
-Autonomous playbook: one safe-reach Threads post daily at 11:00 tagged into the @AiThreads community (1M members). Even days = fresh funny observation about Malaysian dev life; odd days = trending GitHub repo spotlight. Never the same joke, repo, or idea twice.
-
-## Folder Map
-
-```
-threads-community/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-post/       (the contract: select → compose → gate → publish → log)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change daily behavior | `stages/01-post/CONTEXT.md` — the contract IS the behavior | `runs/` contents |
-| Tune voice or tone | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/content-creator.md`) | stage internals |
+| Tune voice or tone | `persona/CONTEXT.md` → this workspace's own `persona/content-creator.md` | stage internals |
 | Check what was posted / why a day skipped | newest `runs/<run-id>/stages/01-post/output/threads-community-log.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

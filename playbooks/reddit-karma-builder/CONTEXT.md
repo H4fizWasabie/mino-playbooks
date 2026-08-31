@@ -1,27 +1,13 @@
 # Reddit Karma Builder — organic u/your-handle engagement
 
-Daily Reddit karma builder for u/your-handle. Uses Composio Reddit tools (account alias: `owner-account`) to find trending posts in AI/tech and developer/builder subreddits and post genuinely helpful comments. Goal: organic karma growth following each subreddit's rules. Runs daily at 10:00 +08:00.
-
-## Folder Map
-
-```
-reddit-karma-builder/
-├── CONTEXT.md              (you are here — navigation hub)
-├── config.md               (runner: description, status, agent)
-├── persona/                (persona pointer → agency roster; see Routing)
-├── stages/
-│   ├── 01-discover-posts/  (self-bounding discovery: trending posts → output)
-│   └── 02-comment-and-log/ (draft + post comments → output/karma-log.md)
-├── tools/link-check.sh     (routing health: links + orphans)
-└── runs/                   (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change one stage | that stage's `stages/NN-name/CONTEXT.md` — the contract IS the behavior | other stages' internals |
-| Tune engagement voice | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/community-builder.md`) | stage internals |
+| Tune engagement voice | `persona/CONTEXT.md` → this workspace's own `persona/community-builder.md` | stage internals |
 | Check what was commented on a given day | newest `runs/<run-id>/stages/02-comment-and-log/output/karma-log.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

@@ -4,10 +4,12 @@
 
 | Source | File/Location | Section/Scope | Why |
 | --- | --- | --- | --- |
-| Previous stage | `../01-judgment/output/topic.md` | Full file | The chosen topic + angle |
+| Previous stage | `../01-judgment/output/topic.md` | Full file | The chosen topic + angle, or a SKIP sentinel |
 | Runtime | Authoritarian local date | Full | Date-stamp the image filename |
 
 ## Process
+
+0. **SKIP passthrough (check first).** If `../01-judgment/output/topic.md` starts with `SKIP:`, do no image or caption work at all. Use `write_file` to create `output/caption.md` containing exactly that same `SKIP: ...` line, and `output/url-verified.md` containing exactly that same `SKIP: ...` line. This satisfies both declared outputs without any generation/hosting work, and lets Stage 03 short-circuit the same way. Stop here.
 
 1. Read the topic from `../01-judgment/output/topic.md`.
 2. In ONE generate_image call: generate a catchy square image for the topic (vibrant, modern, text-free, abstract geometric shapes — no fine detail, no logos). Then evaluate with `view_image` on the returned local artifact path BEFORE anything is published: write a short critique of what it actually shows — on-topic, genuinely text-free, no logos or garbled artifacts, visually distinct from recent posts. If the critique finds a material flaw, regenerate ONCE fixing that flaw, then re-evaluate; only keep an image that passed critique. If it still fails after regeneration, pick a new topic and try once more before giving up. **The critique is INTERNAL WORKING ONLY — record it in your reasoning / the image filename note, NEVER inside the caption text or caption.md. It must never appear in the published post.**
@@ -31,7 +33,15 @@
    - **Filename:** instagram-YYYY-MM-DD.jpg
    ```
    If you skip this receipt, Stage 03 will correctly abort (no receipt = no publish). Do NOT write this receipt if step 4 failed.
-6. Use `write_file` to create `output/caption.md`: the caption text (ONLY the human post text, per step 3) and the verified image URL. Do NOT use bash redirects to write this file. The file may also hold a separate, clearly-labelled `## Critique` section for the internal image critique — but NEVER inside the caption text itself.
+6. **Write `output/caption.md` with this EXACT delimited structure — Stage 03 extracts ONLY the text between `CAPTION_START` and `CAPTION_END`, verbatim, as the published post text. Nothing outside those two lines is ever published, so headings/labels/URLs elsewhere in the file are safe — but the lines between the markers must be pure human-facing caption text, nothing else:**
+   ```
+   CAPTION_START
+   <the human-facing caption text ONLY, per step 3 — no headings, no metadata, nothing but what a reader should see>
+   CAPTION_END
+
+   IMAGE_URL: <the verified HTTPS URL from step 4/5>
+   ```
+   A separate, clearly-labelled `## Critique` section (internal image critique, per step 2) may follow after `IMAGE_URL:` — it is never inside `CAPTION_START`/`CAPTION_END` and Stage 03 never reads it.
 
 ## OUTPUT PROVENANCE RULE (non-overridable)
 
@@ -49,8 +59,8 @@ Every file under `output/` MUST be written using the `write_file` harness tool (
 
 | Artifact | Location | Format |
 | --- | --- | --- |
-| Caption + image URL | `output/caption.md` | Markdown: caption + verified HTTPS URL |
-| URL verification receipt | `output/url-verified.md` | Markdown: URL, status, content type, timestamp |
+| Caption + image URL | `output/caption.md` | `CAPTION_START`/`CAPTION_END` delimited caption, `IMAGE_URL:` line, optional `## Critique` — OR exactly a `SKIP: ...` line |
+| URL verification receipt | `output/url-verified.md` | Markdown: URL, status, content type, timestamp — OR exactly a `SKIP: ...` line |
 ## Recovery Protocol (fix-or-adapt)
 
 A skip-reason output is a successful outcome; ending without the declared outputs is the only true failure. On trouble, recover in-contract instead of reporting failure bare:

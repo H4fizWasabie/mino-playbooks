@@ -1,25 +1,13 @@
 # Threads Replies — engage the good fires, quarantine the spam
 
-Engage with replies on recent Threads battle and community posts — answer the good fires, quarantine spam, never reply twice. The shared quarantine digest is a mandatory declared output of every run.
-
-## Folder Map
-
-```
-threads-replies/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-engage/     (the contract: fetch replies → quarantine → classify → dedup-gate → reply → digest)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change behavior | `stages/01-engage/CONTEXT.md` — the contract IS the behavior | `runs/` contents, `/home/mino/.mino/data/threads-replies/raw.md` |
-| Tune engagement voice | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/community-builder.md`) | stage internals |
+| Tune engagement voice | `persona/CONTEXT.md` → this workspace's own `persona/community-builder.md` | stage internals |
 | Check what was replied on a given day | `runs/<run-id>/stages/01-engage/output/` + the quarantine digest `/home/mino/.mino/data/threads-replies/digest.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

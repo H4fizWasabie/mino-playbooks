@@ -1,11 +1,15 @@
-# Community Post Persona
+# Persona
 
-This playbook does not carry its own persona copy. The canonical persona lives in the agency roster.
+This playbook owns its persona locally. `persona/content-creator.md` is the workspace's
+authoritative voice (PSN-002: workspace personas are authoritative; the shared
+roster at `~/.mino/agents/content-creator.md` is a migration fallback for legacy
+playbooks only — it is no longer live-synced to this file).
 
 ## Contents
 
 | File | Contains | Load when |
 |---|---|---|
-| `/home/mino/.mino/agents/content-creator.md` | Human-register post voice — hook first, one idea, platform-faithful (canonical `agent: content-creator` from `config.md`) | Composing or judging a post |
+| `persona/content-creator.md` | `agent: content-creator` from `config.md` — stance, mission, lens, voice | Executing any stage of this playbook |
 
-Single source of truth: to tune the voice for ALL content playbooks, edit the agency roster file — do not fork it here. Do not load this persona for publishing mechanics, dedup bookkeeping, or log writing.
+To tune this workspace's voice, edit `persona/content-creator.md` directly. Do not
+load the persona for harness mechanics (run state, output paths, verification).

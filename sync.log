@@ -38,3 +38,63 @@ pushed 2026-08-28T06:00:05Z
 To https://github.com/H4fizWasabie/mino-playbooks.git
    7a46c2e..71a83ea  main -> main
 pushed 2026-08-29T06:00:05Z
+[main 89efa16] sync playbooks from VPS (2026-08-30)
+ 97 files changed, 2548 insertions(+), 581 deletions(-)
+ create mode 100644 playbooks/ai-news-daily/persona/CONTEXT.md
+ create mode 100755 playbooks/ai-news-daily/tools/link-check.sh
+ delete mode 100644 playbooks/daily-ai-concept/persona.md
+ create mode 100644 playbooks/daily-ai-concept/persona/CONTEXT.md
+ delete mode 100755 playbooks/daily-ai-concept/script.sh
+ create mode 100755 playbooks/daily-ai-concept/tools/link-check.sh
+ delete mode 100644 playbooks/facebook-daily-ai-post/persona.md
+ create mode 100644 playbooks/facebook-daily-ai-post/persona/CONTEXT.md
+ create mode 100755 playbooks/facebook-daily-ai-post/tools/link-check.sh
+ delete mode 100644 playbooks/gmail-daily-cleanup/persona.md
+ create mode 100644 playbooks/gmail-daily-cleanup/persona/CONTEXT.md
+ delete mode 100755 playbooks/gmail-daily-cleanup/script.sh
+ create mode 100755 playbooks/gmail-daily-cleanup/tools/link-check.sh
+ delete mode 100644 playbooks/instagram-daily-capability/AGENTS.md
+ delete mode 100644 playbooks/instagram-daily-capability/persona/content-creator.md
+ delete mode 100644 playbooks/morning-briefing/persona.md
+ create mode 100644 playbooks/morning-briefing/persona/CONTEXT.md
+ delete mode 100755 playbooks/morning-briefing/script.sh
+ create mode 100755 playbooks/morning-briefing/tools/link-check.sh
+ delete mode 100644 playbooks/post-mortem/persona.md
+ create mode 100644 playbooks/post-mortem/persona/CONTEXT.md
+ create mode 100755 playbooks/post-mortem/tools/link-check.sh
+ delete mode 100644 playbooks/reddit-karma-builder/persona.md
+ create mode 100644 playbooks/reddit-karma-builder/persona/CONTEXT.md
+ create mode 100755 playbooks/reddit-karma-builder/tools/link-check.sh
+ delete mode 100644 playbooks/threads-community/persona.md
+ create mode 100644 playbooks/threads-community/persona/CONTEXT.md
+ create mode 100755 playbooks/threads-community/tools/link-check.sh
+ delete mode 100644 playbooks/threads-replies/persona.md
+ create mode 100644 playbooks/threads-replies/persona/CONTEXT.md
+ create mode 100755 playbooks/threads-replies/tools/link-check.sh
+ delete mode 100644 playbooks/threads-tribal-battle/persona.md
+ create mode 100644 playbooks/threads-tribal-battle/persona/CONTEXT.md
+ create mode 100755 playbooks/threads-tribal-battle/tools/link-check.sh
+ delete mode 100644 playbooks/threads-workplace-drama/persona.md
+ create mode 100644 playbooks/threads-workplace-drama/persona/CONTEXT.md
+ create mode 100755 playbooks/threads-workplace-drama/tools/link-check.sh
+ delete mode 100644 playbooks/weekly-audit/persona.md
+ create mode 100644 playbooks/weekly-audit/persona/CONTEXT.md
+ create mode 100755 playbooks/weekly-audit/tools/link-check.sh
+ delete mode 100644 playbooks/weekly-cost/persona.md
+ create mode 100644 playbooks/weekly-cost/persona/CONTEXT.md
+ create mode 100755 playbooks/weekly-cost/tools/link-check.sh
+ create mode 100644 playbooks/weekly-work-report/CONTEXT.md
+ create mode 100644 playbooks/weekly-work-report/assets/letterhead-template.docx
+ create mode 100644 playbooks/weekly-work-report/collect/week-items.md
+ create mode 100644 playbooks/weekly-work-report/config.md
+ create mode 100644 playbooks/weekly-work-report/persona/CONTEXT.md
+ create mode 100644 playbooks/weekly-work-report/stages/01-collect/CONTEXT.md
+ create mode 100644 playbooks/weekly-work-report/stages/01-collect/CONTRACT.md
+ create mode 100644 playbooks/weekly-work-report/stages/02-synthesize/CONTEXT.md
+ create mode 100644 playbooks/weekly-work-report/stages/02-synthesize/CONTRACT.md
+ create mode 100644 playbooks/weekly-work-report/stages/03-render/CONTEXT.md
+ create mode 100644 playbooks/weekly-work-report/stages/03-render/CONTRACT.md
+ create mode 100755 playbooks/weekly-work-report/tools/link-check.sh
+To https://github.com/H4fizWasabie/mino-playbooks.git
+   71a83ea..89efa16  main -> main
+pushed 2026-08-30T06:00:05Z

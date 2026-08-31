@@ -21,4 +21,18 @@ Steps:
 - Archive step fails (e.g. `collect/archive/` unwritable): do NOT delete `collect/week-items.md`; leave it in place and log the archive failure — next render will re-archive.
 - Ending without the .docx saved under `output/` is the only true failure.
 
+## Tools
+
+- read_file
+- bash
+- write_file
+- send_document
+
+## Outputs
+
+| Artifact | Location | Format |
+| --- | --- | --- |
+| Render log | output/render-log.md | Markdown |
+| Weekly report DOCX | /home/mino/.mino/playbooks/weekly-work-report/output/Weekly-Work-Report-<week-ending-date>.docx | DOCX (this playbook's own output/ dir; quarantined from the ALL_PLATFORMS glob per its absolute path) |
+
 Output: the sent .docx path + archive confirmation, logged to output/render-log.md.

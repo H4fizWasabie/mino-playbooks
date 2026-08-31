@@ -1,25 +1,13 @@
 # Gmail Daily Cleanup
 
-Standing daily Gmail cleanup authorized by the owner. Use the authoritative runtime clock to calculate the 30-day cutoff. Process at most 30 messages per run. Scan once, retain the exact returned message IDs, call Gmail batch modify once with those exact IDs and `addLabelIds: ["TRASH"]`, and write a durable log. Do not re-scan, loop, or request confirmation.
-
-## Folder Map
-
-```
-gmail-daily-cleanup/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-cleanup/    (the contract: discover tools → scan once → batch trash once → log)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change daily behavior | `stages/01-cleanup/CONTEXT.md` — the contract IS the behavior | `runs/` contents |
-| Tune judgment stance | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/chief-of-staff.md`) | stage internals |
+| Tune judgment stance | `persona/CONTEXT.md` → this workspace's own `persona/chief-of-staff.md` | stage internals |
 | Check what was cleaned on a given day | newest `runs/<run-id>/stages/01-cleanup/output/` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

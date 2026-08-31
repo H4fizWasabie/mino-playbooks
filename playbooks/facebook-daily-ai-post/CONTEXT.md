@@ -1,25 +1,13 @@
 # Daily Facebook AI Post
 
-Daily Facebook AI update — one fresh, varied post (news + image or text) about AI developments, with anti-repeat exclusions and a Telegram report. Bounded research, then atomic execution.
-
-## Folder Map
-
-```
-facebook-daily-ai-post/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-post/       (the contract: bounded research → commit → compose → illustrate → publish → log)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change daily behavior | `stages/01-post/CONTEXT.md` — the contract IS the behavior | `runs/` contents |
-| Tune voice or image taste | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/content-creator.md`) | stage internals |
+| Tune voice or image taste | `persona/CONTEXT.md` → this workspace's own `persona/content-creator.md` | stage internals |
 | Check what was posted / why a day skipped | newest `runs/<run-id>/stages/01-post/output/facebook-post-log.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

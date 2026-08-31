@@ -1,25 +1,13 @@
 # Threads Workplace Drama — daily Malaysian office vignette
 
-Publish one short workplace-drama story daily at 17:30. Not tribal, not AI — a 200-400 character vignette every Malaysian worker recognizes: toxic bosses, toxic managers, toxic work friends, workplace quirks, irresponsible moments. Ends with a comment bait. Story family rotates by day-of-year; the used-stories ledger guarantees no story repeats, ever.
-
-## Folder Map
-
-```
-threads-workplace-drama/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-tell/       (the contract: rotate family → tell → gate → publish → ledger → log)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change daily behavior | `stages/01-tell/CONTEXT.md` — the contract IS the behavior | `runs/` contents |
-| Tune voice or storytelling taste | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/narrative-designer.md`) | stage internals |
+| Tune voice or storytelling taste | `persona/CONTEXT.md` → this workspace's own `persona/narrative-designer.md` | stage internals |
 | Check what was posted / why a day skipped | newest `runs/<run-id>/stages/01-tell/output/threads-drama-log.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

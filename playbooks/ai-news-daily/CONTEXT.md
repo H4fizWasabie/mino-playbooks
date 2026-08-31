@@ -1,28 +1,13 @@
 # Daily AI News — top-3 stories, Threads post, Telegram report
 
-Publish the day's top-3 trending AI news from major AI companies (OpenAI, Google, Anthropic, Meta, xAI, Microsoft) as a combined Threads post plus a Telegram report. Three stages, strict handoff by file.
-
-## Folder Map
-
-```
-ai-news-daily/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent, notify)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/
-│   ├── 01-judgment/      (pick 3 verified topics → output/topics.md)
-│   ├── 02-fetch/         (script: pull sources, extract facts → output/facts.md)
-│   └── 03-synthesize/    (compose Threads post + Telegram report → output/03-report.md)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change one stage | that stage's `stages/NN-name/CONTEXT.md` — the contract IS the behavior | other stages' internals |
-| Tune research stance or voice | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/trend-researcher.md`) | stage internals |
+| Tune research stance or voice | `persona/CONTEXT.md` → this workspace's own `persona/trend-researcher.md` | stage internals |
 | Check what was published on a given day | newest `runs/<run-id>/stages/03-synthesize/output/03-report.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

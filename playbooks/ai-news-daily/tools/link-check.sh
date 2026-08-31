@@ -3,8 +3,9 @@
 # link-check. Two directions, one script.
 #
 # 1. LINK CHECK (docs -> disk): every path referenced in routing docs must
-#    resolve. Scope: root CONTEXT.md, config.md, persona/CONTEXT.md, and every
-#    stage CONTEXT.md. Skipped tokens (runtime-resolved or prose, not static
+#    resolve. Scope: root AGENTS.md (ICM Layer 0, when present), root
+#    CONTEXT.md, config.md, persona/CONTEXT.md, and every stage CONTEXT.md.
+#    Skipped tokens (runtime-resolved or prose, not static
 #    references): template tokens (NN-name, YYYY..., <run-id>, {...}, globs),
 #    ellipsis tokens, URLs, MIME types, command snippets (tokens with spaces),
 #    bare relative filenames (shorthand prose, e.g. `candidates.md`), and
@@ -32,6 +33,7 @@ cd "$ROOT"
 declare -a docs=()
 add_doc() { local rp; rp="$(realpath "$1")"; [[ -n "${seen[$rp]:-}" ]] && return; seen[$rp]=1; docs+=("$1"); }
 declare -A seen=()
+[ -f AGENTS.md ] && add_doc AGENTS.md
 add_doc CONTEXT.md
 [ -f config.md ] && add_doc config.md
 while IFS= read -r -d '' f; do add_doc "$f"; done < <(find . -name CONTEXT.md -not -path './tools/*' -not -path './runs/*' -print0 | sort -z)
@@ -75,8 +77,13 @@ done
 
 # --- Phase 2: orphan check (disk -> docs) ------------------------------------
 # Runtime content exempt from routing. Extend when the playbook gains new
-# runtime folders.
-ALLOW_RE='(^|/)(runs|output|references|tools)/|/script\.sh$|\.bak'
+# runtime folders. persona/<agent>.md (PSN-002: workspace-owned personas) is
+# included here rather than relied on via prose reference — a two-segment
+# `persona/<agent>.md` token in a doc is itself skipped by the link-check
+# regex above (shorthand-prose exclusion), so it would never count as
+# "referenced" no matter how it's worded; persona/CONTEXT.md is still
+# reachable separately via the CONTEXT.md glob as a routing doc.
+ALLOW_RE='(^|/)(runs|output|references|tools|persona)/|/script\.sh$|\.bak'
 
 while IFS= read -r -d '' f; do
   rel="${f#./}"

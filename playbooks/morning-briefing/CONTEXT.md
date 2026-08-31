@@ -1,27 +1,13 @@
 # Morning Briefing — daily 07:30 one-message brief
 
-Give the owner a one-message morning brief every day at 07:30: what happened overnight, what Mino owns today, and what needs attention. Two stages: a deterministic fact-gathering script, then an LLM synthesis that sends EXACTLY ONE Telegram message.
-
-## Folder Map
-
-```
-morning-briefing/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/
-│   ├── 01-gather/        (script stage, zero inference → output/facts.md)
-│   └── 02-synthesize/    (compose + send exactly one Telegram brief → output/morning-brief.md)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change one stage | that stage's `stages/NN-name/CONTEXT.md` — the contract IS the behavior | other stages' internals |
-| Tune briefing voice | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/chief-of-staff.md`) | stage internals |
+| Tune briefing voice | `persona/CONTEXT.md` → this workspace's own `persona/chief-of-staff.md` | stage internals |
 | Read a past brief | newest `runs/<run-id>/stages/02-synthesize/output/morning-brief.md` | — |
 | Change what facts are gathered | `stages/01-gather/script.sh` (mechanical — edit the script, not the model) | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |

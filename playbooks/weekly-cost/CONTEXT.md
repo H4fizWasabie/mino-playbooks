@@ -1,27 +1,13 @@
 # Weekly Cost — Sunday spend + output report
 
-One Sunday report of the week's actual spend and output: tokens and estimated cost per model, posts published per platform, runs skipped and why. Day-gated: runs only on Sunday (authoritative local date); on other days write the skip log and end without Telegram.
-
-## Folder Map
-
-```
-weekly-cost/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/
-│   ├── 01-mechanical/    (script: compute spend/output/issues from state.db usage_log → output/raw-cost.md)
-│   └── 02-synthesize/    (compose Telegram report from raw numbers → output/weekly-cost.md)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change one stage | that stage's `stages/NN-name/CONTEXT.md` — the contract IS the behavior | other stages' internals |
-| Tune report voice | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/reality-checker.md`) | stage internals |
+| Tune report voice | `persona/CONTEXT.md` → this workspace's own `persona/reality-checker.md` | stage internals |
 | Read a past report | newest `runs/<run-id>/stages/02-synthesize/output/weekly-cost.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

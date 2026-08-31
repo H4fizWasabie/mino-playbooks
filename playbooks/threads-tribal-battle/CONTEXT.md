@@ -1,25 +1,13 @@
 # Threads Tribal Battle — daily @AiThreads arena post
 
-Publish one arena post daily at 08:30 that pits two Malaysian dev-community tribes against each other, with Mino as the inciter. Home feed only — never tagged to a community. Side is random but never the same tribe twice in a row.
-
-## Folder Map
-
-```
-threads-tribal-battle/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-provoke/    (the contract: pick tribes → incite → gate → publish → log)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change daily behavior | `stages/01-provoke/CONTEXT.md` — the contract IS the behavior | `runs/` contents |
-| Tune voice or provocation taste | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/content-creator.md`) | stage internals |
+| Tune voice or provocation taste | `persona/CONTEXT.md` → this workspace's own `persona/content-creator.md` | stage internals |
 | Check what was posted / why a day skipped | newest `runs/<run-id>/stages/01-provoke/output/threads-battle-log.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

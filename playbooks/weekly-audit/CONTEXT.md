@@ -1,25 +1,13 @@
 # Weekly Audit — Sunday judgment meat-grinder
 
-The judgment meat-grinder. Reads all 7 days of post logs and scores Mino's own work: repeated angles, stale jokes, rubber-stamped image critiques, failed runs. Output is ADVICE — never self-modification of contracts or memory. Day-gated: runs only on Sunday (authoritative local date); on other days write the skip log and end without Telegram.
-
-## Folder Map
-
-```
-weekly-audit/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-audit/      (the contract: day gate → sample logs → score 4 dimensions → Telegram)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change behavior | `stages/01-audit/CONTEXT.md` — the contract IS the behavior | `runs/` contents (other playbooks' logs are inputs, read in-stage) |
-| Tune judgment stance | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/reality-checker.md`) | stage internals |
+| Tune judgment stance | `persona/CONTEXT.md` → this workspace's own `persona/reality-checker.md` | stage internals |
 | Read a past audit | newest `runs/<run-id>/stages/01-audit/output/weekly-audit.md` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

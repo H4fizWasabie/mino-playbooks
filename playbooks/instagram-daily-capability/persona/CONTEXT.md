@@ -1,11 +1,15 @@
-# Instagram Post Persona
+# Persona
 
-This playbook does not carry its own persona copy. The canonical persona lives in the agency roster.
+This playbook owns its persona locally. `persona/instagram-curator.md` is the workspace's
+authoritative voice (PSN-002: workspace personas are authoritative; the shared
+roster at `~/.mino/agents/instagram-curator.md` is a migration fallback for legacy
+playbooks only — it is no longer live-synced to this file).
 
 ## Contents
 
 | File | Contains | Load when |
 |---|---|---|
-| `/home/mino/.mino/agents/instagram-curator.md` | Visual-first, human, platform-native post voice (canonical `agent: instagram-curator` from `config.md`) | Stage 02 composes a post |
+| `persona/instagram-curator.md` | `agent: instagram-curator` from `config.md` — stance, mission, lens, voice | Executing any stage of this playbook |
 
-Single source of truth: to tune the visual/caption taste, edit the agency roster file — do not fork it here. Do not load this persona for topic selection or publishing mechanics.
+To tune this workspace's voice, edit `persona/instagram-curator.md` directly. Do not
+load the persona for harness mechanics (run state, output paths, verification).

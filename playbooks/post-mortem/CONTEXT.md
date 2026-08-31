@@ -1,25 +1,13 @@
 # Post-Mortem — diagnose Mino's own failure from its own trace
 
-Diagnose Mino's most recent failed run from its own trace, with cited evidence, and write a wayfinder-style ticket. On-demand, not scheduled.
-
-## Folder Map
-
-```
-post-mortem/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent, notify)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-diagnose/   (the contract: harness post_mortem tool → evidence → ticket)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change behavior | `stages/01-diagnose/CONTEXT.md` — the contract IS the behavior | `runs/` contents, raw trace files (the harness post_mortem tool extracts them) |
-| Tune diagnostic stance | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/reality-checker.md`) | stage internals |
+| Tune diagnostic stance | `persona/CONTEXT.md` → this workspace's own `persona/reality-checker.md` | stage internals |
 | Read a past post-mortem | newest `runs/<run-id>/stages/01-diagnose/output/` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

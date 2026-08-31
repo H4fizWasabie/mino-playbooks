@@ -1,25 +1,13 @@
 # Daily AI-Concept Learning
 
-Learn one agentic-AI concept daily and store it in the rotating 40-slot Mino library (curated, Mino-grounded, verified), with a one-line Telegram report.
-
-## Folder Map
-
-```
-daily-ai-concept/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent, notify)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/01-learn-and-store/  (the contract: research → verify → store → report)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change daily behavior | `stages/01-learn-and-store/CONTEXT.md` — the contract IS the behavior | `runs/` contents |
-| Tune research stance or voice | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/trend-researcher.md`) | stage internals |
+| Tune research stance or voice | `persona/CONTEXT.md` → this workspace's own `persona/trend-researcher.md` | stage internals |
 | Check what was learned on a given day | newest `runs/<run-id>/stages/01-learn-and-store/output/` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 

@@ -1,28 +1,13 @@
 # Instagram Daily Capability — rotating Mino capability post
 
-Publish a daily rotating Instagram capability post. Stage 01-judgment picks today's topic (distinct across all platforms, last 7 days); stage 02-compose generates the image, critiques it, writes the caption, and syncs the image to the public HTTPS Funnel URL; stage 03-publish posts via the Composio Instagram tool and writes the durable log. Do not publish if the image, public URL, or publishing parameters cannot be verified.
-
-## Folder Map
-
-```
-instagram-daily-capability/
-├── CONTEXT.md            (you are here — navigation hub)
-├── config.md             (runner: description, status, agent)
-├── persona/              (persona pointer → agency roster; see Routing)
-├── stages/
-│   ├── 01-judgment/      (pick topic, cross-platform distinct → output/topic.md)
-│   ├── 02-compose/       (image gen + vision critique + caption + public URL sync)
-│   └── 03-publish/       (Composio Instagram post + durable log)
-├── tools/link-check.sh   (routing health: links + orphans)
-└── runs/                 (Mino-owned run state — never hand-edit state.json)
-```
+See AGENTS.md for workspace identity and the folder map.
 
 ## Routing
 
 | Task | Go To | Do NOT Load |
 |------|-------|-------------|
 | Understand or change one stage | that stage's `stages/NN-name/CONTEXT.md` — the contract IS the behavior | other stages' internals |
-| Tune visual or caption taste | `persona/CONTEXT.md` → canonical persona in the agency roster (`/home/mino/.mino/agents/instagram-curator.md`) | stage internals |
+| Tune visual or caption taste | `persona/CONTEXT.md` → this workspace's own `persona/instagram-curator.md` | stage internals |
 | Check what was posted on a given day | newest `runs/<run-id>/stages/03-publish/output/` | — |
 | Verify wiring after edits | `tools/link-check.sh` | — |
 
